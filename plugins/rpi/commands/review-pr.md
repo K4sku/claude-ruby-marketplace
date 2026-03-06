@@ -36,13 +36,13 @@ Extract from PR body:
 If re-review mode is activated, also save all existing review feedback to `/tmp/` without reading them:
 ```bash
 # Review verdicts and bodies (APPROVED, CHANGES_REQUESTED, COMMENTED)
-gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/reviews > /tmp/pr_<NUMBER>_reviews.json
+gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/reviews | tee /tmp/pr_<NUMBER>_reviews.json | jq length
 
 # Inline review comments on specific diff lines
-gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/comments > /tmp/pr_<NUMBER>_inline_comments.json
+gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/comments | tee /tmp/pr_<NUMBER>_inline_comments.json | jq length
 
 # Conversation-level comments
-gh api repos/<OWNER>/<REPO>/issues/<PR_NUMBER>/comments > /tmp/pr_<NUMBER>_conversation.json
+gh api repos/<OWNER>/<REPO>/issues/<PR_NUMBER>/comments | tee /tmp/pr_<NUMBER>_conversation.json | jq length
 ```
 
 ### Step 2: Fetch and Save Diff
