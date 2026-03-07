@@ -1,7 +1,16 @@
-## Command
+## Input Format
 
 ```
-/feature <FEATURE_DESCRIPTION> [--project <PROJECT_NAME>] [--type <feature|chore>]
+/feature <FEATURE_DESCRIPTION> [additional instructions]
+```
+
+- **FEATURE_DESCRIPTION**: Linear issue URL or plain description (required)
+- **additional instructions** (optional): constraints, focus areas, or any custom guidance
+
+Examples:
+```
+/feature https://linear.app/team/ENG-1234
+/feature ENG-1234 the SpaceshipLauncher class must inherit from BaseVehicle
 ```
 
 ## Context
@@ -10,6 +19,8 @@ Create and complete a new feature or chore for this Ruby on Rails project, from 
 
 With Linear issue URL: Extract ID, fetch details via Linear MCP.
 With description only: Create new Linear issue in the appropriate project.
+
+Pass any additional instructions from user input through to all subagents and apply them during implementation.
 
 ## Workflow
 
@@ -21,13 +32,13 @@ Update Linear ticket: assign to "me", change status to "In Progress"
 
 ### Step 2: Gather Historical Context
 
-Spawn `rpi:thoughts-analyzer` with ticket reference, title, description, and acceptance criteria.
+Spawn `rpi:thoughts-analyzer` with ticket reference, title, description, acceptance criteria, and any additional instructions from user input.
 
 DO NOT proceed to Step 3 until this subagent returns. Its output is required input for Step 3.
 
 ### Step 3: Research Codebase
 
-After Step 2 completes, spawn research subagents in parallel, passing ticket info and historical context output from Step 2:
+After Step 2 completes, spawn research subagents in parallel, passing ticket info, historical context output from Step 2, and any additional instructions from user input:
 
 `rpi:codebase-pattern-finder` - find similar implementations to model after
 `rpi:codebase-analyzer` - analyze the area being modified
@@ -36,7 +47,7 @@ Wait for both subagents to complete before proceeding.
 
 ### Step 4: Implementation
 
-Follow Rails best practices and CLAUDE.md.
+Follow Rails best practices, CLAUDE.md, and any additional instructions from user input.
 Keep code clean, DRY, well-documented.
 When modifying code: fix lurking bugs, refactor, add missing tests and regression tests.
 Ensure solid RSpec coverage with well-documented business logic (viewable with `--format documentation`).
