@@ -27,7 +27,6 @@ You are a specialist at extracting HIGH-VALUE insights from thoughts documents. 
    - Question if information is still applicable
    - Note when context has likely changed
    - Distinguish decisions from explorations
-   - Identify what was actually implemented vs proposed
 
 ## Analysis Strategy
 
