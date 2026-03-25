@@ -34,7 +34,7 @@ Steps are sequential — later steps depend on earlier results. Complete each st
 gh pr view <PR_NUMBER> --json number,title,body,url,headRefName,baseRefName
 ```
 
-The PR references the original ticket (e.g., ENG-123, PROJ-456). Fetch full ticket details — requirements and acceptance criteria define what "correct" looks like for this change before proceeding further.
+The PR references the original ticket (e.g., ENG-123, PROJ-456). Fetch full ticket details — requirements and acceptance criteria define what "correct" looks like for this change before proceeding further. You can't review a feature without knowing what was in the task description before it was implemented.
 
 If re-review or address-feedback mode is activated, also save all existing review feedback to `/tmp/`:
 
