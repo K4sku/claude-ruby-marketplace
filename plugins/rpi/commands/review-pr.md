@@ -36,16 +36,22 @@ Extract from PR body:
 
 If re-review or address-feedback mode is activated, also save all existing review feedback to `/tmp/`:
 
-**Do not read these files.** They will be passed to subagents by path. Reading them here would consume context budget that the main agent needs for judgment in Step 5.
+**Do not read these files.** They will be passed to subagents by path. Reading them here would consume context budget that the main agent needs for judgment in "Step 5: Merge Results".
 ```bash
 # Review verdicts and bodies (APPROVED, CHANGES_REQUESTED, COMMENTED)
-gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/reviews | tee /tmp/pr_<NUMBER>_reviews.json | jq length
+gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/reviews \
+  --jq '[.[] | {id, state, body, html_url, commit_id, submitted_at, author_association, user: .user.login}]' \
+  | tee /tmp/pr_<NUMBER>_reviews.json | jq length
 
 # Inline review comments on specific diff lines
-gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/comments | tee /tmp/pr_<NUMBER>_inline_comments.json | jq length
+gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/comments \
+  --jq '[.[] | {id, pull_request_review_id, body, path, line, start_line, side, diff_hunk, commit_id, created_at, author_association, in_reply_to_id, user: .user.login}]' \
+  | tee /tmp/pr_<NUMBER>_inline_comments.json | jq length
 
 # Conversation-level comments
-gh api repos/<OWNER>/<REPO>/issues/<PR_NUMBER>/comments | tee /tmp/pr_<NUMBER>_conversation.json | jq length
+gh api repos/<OWNER>/<REPO>/issues/<PR_NUMBER>/comments \
+  --jq '[.[] | {id, body, html_url, created_at, updated_at, author_association, user: .user.login}]' \
+  | tee /tmp/pr_<NUMBER>_conversation.json | jq length
 ```
 
 ### Step 2: Fetch and Save Diff
@@ -83,19 +89,19 @@ Spawn the **thoughts-analyzer** subagent to find historical knowledge about affe
 ```
 subagent_type: rpi:thoughts-analyzer
 
-Prompt: "What do we know about <ticket reference and title from Step 1>? What decisions, constraints, and trade-offs should reviewers be aware of?"
+Prompt: "What do we know about <ticket reference and title from "Step 1: Gather PR Metadata">? What decisions, constraints, and trade-offs should reviewers be aware of?"
 ```
 
 **Wait for this subagent to complete before proceeding.**
 
 ### Step 4-a: Spawn Review Subagents
 
-If address-feedback mode is activated, skip to **Step 4-b** below.
+If address-feedback mode is activated, skip to "Step 4-b: Spawn Codebase Research Subagents (address-feedback)" below.
 
 Spawn all five review subagents **in parallel** using the Task tool with `subagent_type: Explore`. Each receives:
 - Path to the diff file in `/tmp/`
-- Ticket context (from Step 1)
-- Historical context (from Step 3)
+- Ticket context (from "Step 1: Gather PR Metadata")
+- Historical context (from "Step 3: Gather Historical Context")
 - Their specific review focus
 - Any additional instructions from the user's input
 
@@ -245,11 +251,11 @@ Output: List findings tagged [major], [minor], or [nit] with file:line reference
 
 ### Step 4-b: Spawn Codebase Research Subagents (address-feedback)
 
-Unless address-feedback mode is activated, skip to **Step 5** below.
+Unless address-feedback mode is activated, skip to "Step 5: Merge Results" below.
 
 Spawn **rpi:codebase-analyzer** and **rpi:codebase-pattern-finder** in parallel. Each receives:
 - Paths to comment files and diff file in `/tmp/`
-- Historical context (from Step 3)
+- Historical context (from "Step 3: Gather Historical Context")
 - Any additional instructions from the user's input
 
 ### Step 5: Merge Results
@@ -282,7 +288,7 @@ Determine verdict:
 
 ### Step 6: Finalize
 
-If self-review or address-feedback mode is activated, skip to **Address Feedback** below.
+If self-review or address-feedback mode is activated, skip to "Address Feedback" below.
 
 #### Present and Post (review / re-review)
 
