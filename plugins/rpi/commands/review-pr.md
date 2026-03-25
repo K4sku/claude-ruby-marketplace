@@ -30,17 +30,11 @@ Steps are sequential — later steps depend on earlier results. Complete each st
 
 ### Step 1: Gather Feature Context
 
-A PR implements a feature. Trace back to the original ticket to understand what "correct" looks like.
-
 ```bash
 gh pr view <PR_NUMBER> --json number,title,body,url,headRefName,baseRefName
 ```
 
-Extract from PR body:
-- **Ticket reference** (e.g., ENG-123, PROJ-456)
-- **Business context** — why this change is needed
-
-If a ticket reference is found, fetch full ticket details for requirements and acceptance criteria.
+The PR body references the original ticket (e.g., ENG-123, PROJ-456). Fetch full ticket details — requirements and acceptance criteria define what "correct" looks like for this change before proceeding further.
 
 If re-review or address-feedback mode is activated, also save all existing review feedback to `/tmp/`:
 
