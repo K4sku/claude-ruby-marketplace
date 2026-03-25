@@ -33,12 +33,14 @@ gh pr view <PR_NUMBER> --json number,title,body,url,headRefName,baseRefName
 ```
 
 Extract from PR body:
-- **Ticket reference** (e.g., ENG-123, PROJ-456) — if found, fetch full ticket details for requirements and acceptance criteria
+- **Ticket reference** (e.g., ENG-123, PROJ-456)
 - **Business context** — why this change is needed
+
+If a ticket reference is found, fetch full ticket details for requirements and acceptance criteria.
 
 If re-review or address-feedback mode is activated, also save all existing review feedback to `/tmp/`:
 
-**Do not read these files.** They will be passed to subagents by path. Reading them here would consume context budget that the main agent needs for judgment in "Step 5: Merge Results".
+**Do not read these files — pass them to subagents by path only.** The subagents will read and analyze the content. Reading them here would consume context budget that the main agent needs for judgment in "Step 5: Merge Results".
 ```bash
 # Review verdicts and bodies (APPROVED, CHANGES_REQUESTED, COMMENTED)
 gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/reviews \
