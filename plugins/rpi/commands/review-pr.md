@@ -24,6 +24,8 @@ Examples:
 
 ## Process
 
+Your role is **orchestrator and judge**, not doer. You collect artifacts, delegate analysis to subagents, and apply judgment to their output. The subagents read the code and comments — you decide what to do about their findings. Your context budget is reserved for judgment, not for reading raw data.
+
 Steps are sequential — later steps depend on earlier results. Complete each step and wait for its results before starting the next. Skipping ahead without subagent results means the judgment layer in "Step 5: Merge Results" has nothing to work with. Only parallelize where explicitly marked (e.g., "spawn in parallel").
 
 ### Step 1: Gather PR Metadata
@@ -316,7 +318,7 @@ gh pr review <PR_NUMBER> --request-changes --body "<review body>"
 
 #### Address Feedback
 
-Instead of presenting and posting, act on the findings:
+Your role changes from orchestrator to doer. You now have the judgment results — act on them:
 
 1. **Fix concerns** — Address [major] and [minor] issues directly in code. Apply [nit]s at own discretion.
 2. **Commit and push** — Commit the fixes with a descriptive message and push to the PR branch.
