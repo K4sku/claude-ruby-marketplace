@@ -34,7 +34,9 @@ Extract from PR body:
 - **Ticket reference** (e.g., ENG-123, PROJ-456) — if found, fetch full ticket details for requirements and acceptance criteria
 - **Business context** — why this change is needed
 
-If re-review or address-feedback mode is activated, also save all existing review feedback to `/tmp/` without reading them:
+If re-review or address-feedback mode is activated, also save all existing review feedback to `/tmp/`:
+
+**Do not read these files.** They will be passed to subagents by path. Reading them here would consume context budget that the main agent needs for judgment in Step 5.
 ```bash
 # Review verdicts and bodies (APPROVED, CHANGES_REQUESTED, COMMENTED)
 gh api repos/<OWNER>/<REPO>/pulls/<PR_NUMBER>/reviews | tee /tmp/pr_<NUMBER>_reviews.json | jq length
