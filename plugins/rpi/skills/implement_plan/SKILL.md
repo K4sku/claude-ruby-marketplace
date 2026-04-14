@@ -1,5 +1,8 @@
 ---
-description: Implement technical plans from ./thoughts/shared/plans with verification
+name: implement_plan
+description: >-
+  Implement technical plans from ./thoughts/shared/plans with verification
+version: 1.0.0
 ---
 
 # Implement Plan

@@ -1,5 +1,8 @@
 ---
-description: Create git commits with user approval and no Claude attribution
+name: commit
+description: >-
+  Create git commits with user approval and no Claude attribution
+version: 1.0.0
 ---
 
 # Commit Changes

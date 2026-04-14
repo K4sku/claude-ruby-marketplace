@@ -1,5 +1,8 @@
 ---
-description: Validate implementation against plan, verify success criteria, identify issues
+name: validate_plan
+description: >-
+  Validate implementation against plan, verify success criteria, identify issues
+version: 1.0.0
 ---
 
 # Validate Plan

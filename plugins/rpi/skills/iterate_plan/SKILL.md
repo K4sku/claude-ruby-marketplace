@@ -1,5 +1,8 @@
 ---
-description: Iterate on existing implementation plans with thorough research and updates
+name: iterate_plan
+description: >-
+  Iterate on existing implementation plans with thorough research and updates
+version: 1.0.0
 model: opus
 ---
 
