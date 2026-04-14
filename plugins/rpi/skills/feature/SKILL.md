@@ -1,3 +1,11 @@
+---
+name: feature
+description: >-
+  One-shot feature implementation from branch creation to PR readiness with
+  research, testing, and CI monitoring
+version: 1.0.0
+---
+
 ## Input Format
 
 ```

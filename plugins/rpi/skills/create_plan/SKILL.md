@@ -1,5 +1,8 @@
 ---
-description: Create detailed implementation plans through interactive research and iteration
+name: create_plan
+description: >-
+  Create detailed implementation plans through interactive research and iteration
+version: 1.0.0
 model: opus
 ---
 

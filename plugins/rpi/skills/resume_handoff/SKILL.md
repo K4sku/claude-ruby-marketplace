@@ -1,5 +1,8 @@
 ---
-description: Resume work from handoff document with context analysis and validation
+name: resume_handoff
+description: >-
+  Resume work from handoff document with context analysis and validation
+version: 1.0.0
 ---
 
 # Resume work from a handoff document

@@ -1,5 +1,8 @@
 ---
-description: Create handoff document for transferring work to another session
+name: create_handoff
+description: >-
+  Create handoff document for transferring work to another session
+version: 1.0.0
 ---
 
 # Create Handoff

@@ -1,5 +1,8 @@
 ---
-description: Initialize thoughts system for current repository
+name: thoughts_init
+description: >-
+  Initialize thoughts system for current repository
+version: 1.0.0
 ---
 
 # Initialize Thoughts System

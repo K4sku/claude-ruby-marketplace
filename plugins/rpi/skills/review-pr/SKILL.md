@@ -1,5 +1,10 @@
 ---
-description: Multi-agent PR review with four modes (review, re-review, self-review, address-feedback) - spawns parallel subagents, saves diff to /tmp for context efficiency, supports file exclusion patterns
+name: review-pr
+description: >-
+  Multi-agent PR review with four modes (review, re-review, self-review,
+  address-feedback) - spawns parallel subagents, saves diff to /tmp for context
+  efficiency, supports file exclusion patterns
+version: 1.0.0
 ---
 
 ## Input Format
